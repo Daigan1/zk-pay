@@ -5,9 +5,9 @@
 **ZK-Pay** is an on-chain lending and neo-banking platform that enables
 users to:
 
--   Borrow credit against their future earnings\
--   Invest those funds into yield-generating strategies\
--   Manage payroll and assets entirely on-chain privately using the Unlink Privacy SDK\
+-   Borrow credit against their future earnings
+-   Invest those funds into yield-generating strategies
+-   Manage payroll and assets entirely on-chain privately using the Unlink Privacy SDK
 -   Preserve financial privacy using zero-knowledge proofs
 
 It combines **stablecoin payroll, private lending, and DeFi yield** into a single easy-to-use experience for the user.
@@ -38,14 +38,14 @@ potential**, built entirely on-chain.
 
 ### How It Works
 
--   A user submits a paystub\
+-   A user submits a paystub
 -   A zero-knowledge proof verifies:
-    -   Pay date\
-    -   Income amount\
--   The protocol issues a stablecoin credit line shieled with Unlink\
+    -   Pay date
+    -   Income amount
+-   The protocol issues a stablecoin credit line shieled with Unlink
 -   The user can:
-    -   Invest in crypto assets\
-    -   Earn yield on stablecoins earning 5%+ APY\
+    -   Invest in crypto assets
+    -   Earn yield on stablecoins earning 5%+ APY
     -   Allocate to automated strategies
 
 No sensitive income data is made public or any investment strategies.
@@ -57,10 +57,10 @@ No sensitive income data is made public or any investment strategies.
 On the verified payment date:
 
 -   If payroll extraction succeeds:
-    -   The loan is repaid\
+    -   The loan is repaid
     -   The user's invested assets and yield are unlocked from the platform
 -   If extraction fails:
-    -   The protocol treasury absorbs repayment\
+    -   The protocol treasury absorbs repayment
     -   Risk management mechanisms activate
 
 This creates a structured credit system with automated settlement logic without needing to involve the employer.
@@ -69,8 +69,8 @@ This creates a structured credit system with automated settlement logic without 
 
 ZK-Pay is designed around financial privacy:
 
--   Employees don't want their income statements public\
--   Users don't want their investment strategies exposed\
+-   Employees don't want their income statements public
+-   Users don't want their investment strategies exposed
 -   Users don't want their full balances visible on-chain
 
 ZK-Pay acts as a full payroll + bank replacement, so confidentiality is
@@ -78,16 +78,16 @@ critical.
 
 Zero-knowledge proofs + Unlink Privacy SDK to ensure:
 
--   Income verification without exposure\
--   Private investment allocations\
--   Hidden balances\
+-   Income verification without exposure
+-   Private investment allocations
+-   Hidden balances
 
 ## The Vision
 
 ZK-Pay is building:
 
--   A privacy-first on-chain neobank\
--   A lending system based on future earnings\
+-   A privacy-first on-chain neobank
+-   A lending system based on future earnings
 -   A full payroll-to-investment financial stack
 -   A ability for users to earn on their future income instead of letting it sit
 
