@@ -415,34 +415,26 @@ export function WageCredit() {
               )}
             </span>
           </div>
-          {hasActiveLoan &&
-            loan &&
-            (isPrivacyAvailable ? (
-              <div className="mt-3 p-3 bg-base-200 rounded-lg text-sm text-center opacity-70">
-                Loan details are private. Settlement is handled by your employer.
+          {hasActiveLoan && loan && (
+            <div className="mt-3 p-3 bg-base-200 rounded-lg text-sm">
+              <div className="flex justify-between">
+                <span className="opacity-70">Principal</span>
+                <span className="font-mono">${formatUsdc(loan.loanedAmount)} USDC</span>
               </div>
-            ) : (
-              <div className="mt-3 p-3 bg-base-200 rounded-lg text-sm">
-                <div className="flex justify-between">
-                  <span className="opacity-70">Principal</span>
-                  <span className="font-mono">${formatUsdc(loan.loanedAmount)} USDC</span>
-                </div>
-                <div className="flex justify-between mt-1">
-                  <span className="opacity-70">Fixed Fee</span>
-                  <span className="font-mono">${formatUsdc(loan.fixedFee)} USDC</span>
-                </div>
-                <div className="flex justify-between mt-1 font-bold">
-                  <span>Repayment Due</span>
-                  <span className="font-mono">
-                    ${formatUsdc(BigInt(loan.loanedAmount) + BigInt(loan.fixedFee))} USDC
-                  </span>
-                </div>
-                <div className="flex justify-between mt-1">
-                  <span className="opacity-70">Pay Date</span>
-                  <span>{new Date(Number(loan.payDate) * 1000).toLocaleDateString()}</span>
-                </div>
+              <div className="flex justify-between mt-1">
+                <span className="opacity-70">Fixed Fee</span>
+                <span className="font-mono">${formatUsdc(loan.fixedFee)} USDC</span>
               </div>
-            ))}
+              <div className="flex justify-between mt-1 font-bold">
+                <span>Repayment Due</span>
+                <span className="font-mono">${formatUsdc(BigInt(loan.loanedAmount) + BigInt(loan.fixedFee))} USDC</span>
+              </div>
+              <div className="flex justify-between mt-1">
+                <span className="opacity-70">Pay Date</span>
+                <span>{new Date(Number(loan.payDate) * 1000).toLocaleDateString()}</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

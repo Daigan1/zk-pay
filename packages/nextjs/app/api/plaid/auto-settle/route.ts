@@ -67,7 +67,7 @@ export async function POST(req: Request) {
       access_token: plaidData.accessToken,
       account_id: accountId,
       authorization_id: authorizationId,
-      description: "ZK-Pay wage credit repayment",
+      description: "ZKPay repayment",
     });
 
     const transferId = transferResponse.data.transfer.id;
