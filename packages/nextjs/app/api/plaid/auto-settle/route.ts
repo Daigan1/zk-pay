@@ -9,18 +9,31 @@ import { getPlaidAccess, plaidClient } from "~~/services/plaid/plaidClient";
  * 3. In sandbox mode, simulates instant settlement.
  * 4. Returns success so the frontend can trigger on-chain settlePayment.
  */
+async function getAnyAccountId(accessToken: string): Promise<string> {
+  const res = await plaidClient.accountsGet({ access_token: accessToken });
+  const accounts = res.data.accounts ?? [];
+
+  const picked =
+    accounts.find(a => a.subtype === "checking") ?? accounts.find(a => a.subtype === "savings") ?? accounts[0];
+
+  if (!picked?.account_id) throw new Error("No accounts found for access_token");
+  return picked.account_id;
+}
+
 export async function POST(req: Request) {
   try {
     const { walletAddress, repaymentAmount } = await req.json();
+
     if (!walletAddress) {
       return NextResponse.json({ error: "walletAddress required" }, { status: 400 });
     }
 
-    const plaidData = getPlaidAccess(walletAddress);
+    // IMPORTANT: await in case storage lookup is async
+    const plaidData = await getPlaidAccess(walletAddress);
 
     // If no stored bank data (e.g. dev server hot-reloaded), still return
     // success so the frontend can proceed with on-chain settlement.
-    if (!plaidData) {
+    if (!plaidData?.accessToken) {
       return NextResponse.json({
         success: true,
         skipped: true,
@@ -29,12 +42,15 @@ export async function POST(req: Request) {
     }
 
     // Default repayment amount for demo ($1,515 = $1,500 principal + $15 fee at 1%)
-    const amount = repaymentAmount || "1515.00";
+    const amount = String(repaymentAmount ?? "1515.00");
+
+    // ✅ Always use a real account_id (derive it from Plaid if you didn't store it)
+    const accountId = await getAnyAccountId(plaidData.accessToken);
 
     // Authorize the ACH debit
     const authResponse = await plaidClient.transferAuthorizationCreate({
       access_token: plaidData.accessToken,
-      account_id: "",
+      account_id: accountId,
       type: TransferType.Debit,
       network: TransferNetwork.Ach,
       amount,
@@ -49,7 +65,7 @@ export async function POST(req: Request) {
     // Create the transfer
     const transferResponse = await plaidClient.transferCreate({
       access_token: plaidData.accessToken,
-      account_id: "",
+      account_id: accountId,
       authorization_id: authorizationId,
       description: "ZK-Pay wage credit repayment",
     });
@@ -70,9 +86,20 @@ export async function POST(req: Request) {
       success: true,
       transferId,
       amount,
+      accountIdUsed: accountId,
     });
-  } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Auto-settle failed";
-    return NextResponse.json({ error: message }, { status: 500 });
+  } catch (error: any) {
+    // Surface Plaid error details instead of just a generic message
+    const plaid = error?.response?.data;
+    console.error("Auto-settle failed:", {
+      message: error?.message,
+      status: error?.response?.status,
+      plaid,
+    });
+
+    return NextResponse.json(
+      { error: "Auto-settle failed", details: plaid ?? error?.message ?? String(error) },
+      { status: 500 },
+    );
   }
 }
