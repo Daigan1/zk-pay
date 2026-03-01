@@ -43,6 +43,7 @@
     "next:serve": "yarn workspace @se-2/nextjs serve",
     "precommit": "lint-staged",
     "start": "yarn workspace @se-2/nextjs dev",
+    "r": "yarn deploy & yarn start",
     "test": "yarn foundry:test",
     "vercel": "yarn workspace @se-2/nextjs vercel",
     "vercel:login": "yarn workspace @se-2/nextjs vercel:login",

@@ -29,10 +29,12 @@ pgnTestnet = "https://sepolia.publicgoods.network"
 
 
 localhost = "http://127.0.0.1:8545"
+monadTestnet = "https://testnet-rpc.monad.xyz"
 
 [etherscan]
 polygonMumbai = { key = "${ETHERSCAN_API_KEY}" }
 sepolia = { key = "${ETHERSCAN_API_KEY}" }
+monadTestnet = { key = "${ETHERSCAN_API_KEY}", url = "https://testnet.monadexplorer.com/api" }
 
 
 

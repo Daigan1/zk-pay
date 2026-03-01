@@ -51,6 +51,7 @@ export const RainbowKitCustomConnectButton = () => {
                         minHeight: "0",
                         height: "auto",
                         fontSize: "0.8em",
+                        color: "white",
                       }}
                     />
                     <span className="text-xs" style={{ color: networkColor }}>

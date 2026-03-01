@@ -44,7 +44,7 @@ export const wagmiConnectors = () => {
     ],
 
     {
-      appName: "scaffold-eth-2",
+      appName: "zk-pay",
       projectId: scaffoldConfig.walletConnectProjectId,
     },
   );
